@@ -1,0 +1,191 @@
+/* Quote Carousel and Animations */
+:root {
+    --typing-speed: 30ms;
+    --quote-transition: 500ms;
+}
+.quote-carousel {
+    margin: 3rem 0;
+    position: relative;
+    text-align: center;
+}
+
+.quotes-wrapper {
+    position: relative;
+    height: 80px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+.quote {
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    visibility: hidden;
+}
+
+.quote.active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    visibility: visible;
+}
+
+.quote p {
+    font-size: 1.5rem;
+    margin: 0;
+    font-weight: 500;
+    text-align: center;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.animated-text {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    line-height: 1.5;
+}
+
+.animated-text span {
+    display: inline-block;
+}
+
+.glitch-text {
+    color: var(--neon-primary);
+    text-shadow: 0 0 10px var(--neon-primary);
+    animation: glitch 3s infinite;
+    position: relative;
+}
+
+.typing-text {
+    color: var(--neon-text);
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards;
+    animation-delay: calc(var(--char-index) * 0.1s);
+}
+
+.neon-text {
+    color: var(--neon-secondary);
+    text-shadow: 0 0 15px var(--neon-secondary);
+    animation: pulse 2s infinite;
+}
+
+.quote-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.quote-nav {
+    background: none;
+    border: none;
+    color: var(--neon-text);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: all 0.3s ease;
+    opacity: 0.6;
+}
+
+.quote-nav:hover {
+    color: var(--neon-primary);
+    text-shadow: 0 0 10px var(--neon-primary);
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.quote-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.8rem;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    box-shadow: 0 0 5px rgba(0, 255, 255, 0.2);
+}
+
+.dot::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    transform: translate(-50%, -50%);
+    border: 1px solid var(--neon-primary);
+    border-radius: 50%;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.dot:hover {
+    background: rgba(var(--neon-primary-rgb), 0.5);
+}
+
+.dot.active {
+    background: var(--neon-primary);
+    box-shadow: 0 0 10px var(--neon-primary);
+}
+
+.dot.active::after {
+    opacity: 1;
+    animation: pulseRing 2s infinite;
+}
+
+@keyframes glitch {
+    0% {
+        transform: translate(0);
+        text-shadow: 0 0 10px var(--neon-primary);
+    }
+    2% {
+        transform: translate(-2px, 2px);
+        text-shadow: 2px 0 10px var(--neon-secondary);
+    }
+    4% {
+        transform: translate(2px, -2px);
+        text-shadow: -2px 0 10px var(--neon-primary);
+    }
+    6% {
+        transform: translate(0);
+        text-shadow: 0 0 10px var(--neon-primary);
+    }
+}
+
+@keyframes pulse {
+    0% { text-shadow: 0 0 10px var(--neon-secondary); }
+    50% { text-shadow: 0 0 20px var(--neon-secondary), 0 0 30px var(--neon-secondary); }
+    100% { text-shadow: 0 0 10px var(--neon-secondary); }
+}
+
+@keyframes fadeIn {
+    from { 
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulseRing {
+    0% {
+        width: 16px;
+        height: 16px;
+        opacity: 1;
+    }
+    100% {
+        width: 24px;
+        height: 24px;
+        opacity: 0;
+    }
+}
